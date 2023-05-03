@@ -75,7 +75,7 @@ namespace SimpleJobTrackerTests.API.Controllers
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var jobOffers = Assert.IsAssignableFrom<IEnumerable<JobOfferDTO>>(okResult.Value);
+            var jobOffers = Assert.IsAssignableFrom<IEnumerable<JobOfferDto>>(okResult.Value);
             Assert.Equal(_mockedDbContextCount, jobOffers.Count());
         }
 
@@ -93,7 +93,7 @@ namespace SimpleJobTrackerTests.API.Controllers
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var jobOffers = Assert.IsAssignableFrom<IEnumerable<JobOfferDTO>>(okResult.Value);
+            var jobOffers = Assert.IsAssignableFrom<IEnumerable<JobOfferDto>>(okResult.Value);
             Assert.Equal(_mockedDbContextNonDeletedCount, jobOffers.Count());
         }
 
@@ -111,7 +111,7 @@ namespace SimpleJobTrackerTests.API.Controllers
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var jobOffers = Assert.IsAssignableFrom<IEnumerable<JobOfferDTO>>(okResult.Value);
+            var jobOffers = Assert.IsAssignableFrom<IEnumerable<JobOfferDto>>(okResult.Value);
             Assert.Equal(_mockedDbContextDeletedCount, jobOffers.Count());
         }
 
@@ -123,14 +123,14 @@ namespace SimpleJobTrackerTests.API.Controllers
             Mock<OffersDbContext> offersDbContextMock = GetMockDbContext();
             var controller = new OffersController(offersDbContextMock.Object);
 
-            var newJobOffer = new JobOfferDTO() { Position = "New Position" };
+            var newJobOffer = new JobOfferDto() { Position = "New Position" };
 
             // Act
             var result = controller.PostNewJobOffer(newJobOffer);
 
             // Assert
             var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
-            var createdJobOffer = Assert.IsType<JobOfferDTO>(createdAtActionResult.Value);
+            var createdJobOffer = Assert.IsType<JobOfferDto>(createdAtActionResult.Value);
             Assert.Equal(newJobOffer.Position, createdJobOffer.Position);
             offersDbContextMock.Verify(x => x.SaveChangesAsync(default), Times.Once);
         }
@@ -144,7 +144,7 @@ namespace SimpleJobTrackerTests.API.Controllers
             var controller = new OffersController(offersDbContextMock.Object);
 
             int updatedJobOfferId = 1;
-            var updatedJobOffer = new JobOfferDTO() { Id = updatedJobOfferId, Position = "Updated Position" };
+            var updatedJobOffer = new JobOfferDto() { Id = updatedJobOfferId, Position = "Updated Position" };
 
             // Act
             var result = controller.PutJobOffer(updatedJobOffer.Id, updatedJobOffer);

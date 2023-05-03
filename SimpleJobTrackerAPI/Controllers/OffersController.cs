@@ -14,18 +14,18 @@ namespace SimpleJobTrackerAPI.Controllers
             _context = context;
         }
 
-        public Task<ActionResult<List<JobOfferDTO>>> GetAllDeletedOffers()
+        public Task<ActionResult<List<JobOfferDto>>> GetAllDeletedOffers()
         {
             throw new NotImplementedException();
         }
 
-        public Task<ActionResult<List<JobOfferDTO>>> GetAllNonDeletedOffers()
+        public Task<ActionResult<List<JobOfferDto>>> GetAllNonDeletedOffers()
         {
             throw new NotImplementedException();
         }
 
         [HttpGet]
-        public Task<ActionResult<List<JobOfferDTO>>> GetAllOffers()
+        public Task<ActionResult<List<JobOfferDto>>> GetAllOffers()
         {
             throw new NotImplementedException();
         }
@@ -35,12 +35,12 @@ namespace SimpleJobTrackerAPI.Controllers
             throw new NotImplementedException();
         }
 
-        public Task<ActionResult<JobOfferDTO>> PostNewJobOffer(JobOfferDTO newJobOffer)
+        public Task<ActionResult<JobOfferDto>> PostNewJobOffer(JobOfferDto newJobOffer)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IActionResult> PutJobOffer(int id, JobOfferDTO updatedJobOffer)
+        public Task<IActionResult> PutJobOffer(int id, JobOfferDto updatedJobOffer)
         {
             throw new NotImplementedException();
         }

@@ -1,6 +1,6 @@
 ﻿namespace SimpleJobTrackerAPI.Models
 {
-    public class JobOfferDTO
+    public class JobOfferDto
     {
         public int Id { get; set; }
 
