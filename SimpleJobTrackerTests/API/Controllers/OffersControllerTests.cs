@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 
@@ -17,8 +18,9 @@ namespace SimpleJobTrackerTests.API.Controllers
         public void OffersControllerHasDbContextDI()
         {
             var mockDbContext = GetMockDbContext();
+            var mapperMock = GetMockMapper();
 
-            var controller = new OffersController(mockDbContext.Object);
+            var controller = new OffersController(mockDbContext.Object, mapperMock.Object);
 
             Assert.NotNull(controller);
         }
@@ -61,14 +63,22 @@ namespace SimpleJobTrackerTests.API.Controllers
             return offersDbContextMock;
         }
 
+        private static Mock<IMapper> GetMockMapper()
+        {
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(m => m.Map<JobOfferModel>(It.IsAny<JobOfferDto>())).Returns(It.IsAny<JobOfferModel>());
+            return mapperMock;
+        }
+
         // GetAllOffers
         [Fact]
         public void GetAllOffersReturnsAllOffers()
         {
             // Arrange
             Mock<OffersDbContext> offersDbContextMock = GetMockDbContext();
+            var mapperMock = GetMockMapper();
 
-            var controller = new OffersController(offersDbContextMock.Object);
+            var controller = new OffersController(offersDbContextMock.Object, mapperMock.Object);
 
             // Act
             var result = controller.GetAllOffers();
@@ -85,8 +95,9 @@ namespace SimpleJobTrackerTests.API.Controllers
         {
             // Arrange
             Mock<OffersDbContext> offersDbContextMock = GetMockDbContext();
+            var mapperMock = GetMockMapper();
 
-            var controller = new OffersController(offersDbContextMock.Object);
+            var controller = new OffersController(offersDbContextMock.Object, mapperMock.Object);
 
             // Act
             var result = controller.GetAllNonDeletedOffers();
@@ -103,8 +114,9 @@ namespace SimpleJobTrackerTests.API.Controllers
         {
             // Arrange
             Mock<OffersDbContext> offersDbContextMock = GetMockDbContext();
+            var mapperMock = GetMockMapper();
 
-            var controller = new OffersController(offersDbContextMock.Object);
+            var controller = new OffersController(offersDbContextMock.Object, mapperMock.Object);
 
             // Act
             var result = controller.GetAllDeletedOffers();
@@ -121,7 +133,9 @@ namespace SimpleJobTrackerTests.API.Controllers
         {
             // Arrange
             Mock<OffersDbContext> offersDbContextMock = GetMockDbContext();
-            var controller = new OffersController(offersDbContextMock.Object);
+            var mapperMock = GetMockMapper();
+
+            var controller = new OffersController(offersDbContextMock.Object, mapperMock.Object);
 
             var newJobOffer = new JobOfferDto() { Position = "New Position" };
 
@@ -141,7 +155,9 @@ namespace SimpleJobTrackerTests.API.Controllers
         {
             // Arrange
             Mock<OffersDbContext> offersDbContextMock = GetMockDbContext();
-            var controller = new OffersController(offersDbContextMock.Object);
+            var mapperMock = GetMockMapper();
+
+            var controller = new OffersController(offersDbContextMock.Object, mapperMock.Object);
 
             int updatedJobOfferId = 1;
             var updatedJobOffer = new JobOfferDto() { Id = updatedJobOfferId, Position = "Updated Position" };
@@ -162,7 +178,9 @@ namespace SimpleJobTrackerTests.API.Controllers
         {
             // Arrange
             Mock<OffersDbContext> offersDbContextMock = GetMockDbContext();
-            var controller = new OffersController(offersDbContextMock.Object);
+            var mapperMock = GetMockMapper();
+
+            var controller = new OffersController(offersDbContextMock.Object, mapperMock.Object);
 
             int jobOfferToDeleteId = 1;
 
