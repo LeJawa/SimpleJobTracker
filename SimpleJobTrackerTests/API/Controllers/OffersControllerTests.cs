@@ -35,29 +35,29 @@ namespace SimpleJobTrackerTests.API.Controllers
 
 
             var offersDbContextMock = new Mock<OffersDbContext>(mockOptions);
-            var data = new List<JobOffer>
+            var data = new List<JobOfferModel>
             {
-                new JobOffer() { Id = 1, Position = "Entity 1" },
-                new JobOffer() { Id = 2, Position = "Entity 2" },
-                new JobOffer() { Id = 3, Position = "Entity 3", IsDeleted = true },
-                new JobOffer() { Id = 4, Position = "Entity 4" },
-                new JobOffer() { Id = 5, Position = "Entity 5", IsDeleted = true },
+                new JobOfferModel() { Id = 1, Position = "Entity 1" },
+                new JobOfferModel() { Id = 2, Position = "Entity 2" },
+                new JobOfferModel() { Id = 3, Position = "Entity 3", IsDeleted = true },
+                new JobOfferModel() { Id = 4, Position = "Entity 4" },
+                new JobOfferModel() { Id = 5, Position = "Entity 5", IsDeleted = true },
             };
 
             _mockedDbContextCount = data.Count;
             _mockedDbContextNonDeletedCount = data.Select(x => !x.IsDeleted).ToList().Count;
             _mockedDbContextDeletedCount = data.Select(x => x.IsDeleted).ToList().Count;
 
-            var mockSet = new Mock<DbSet<JobOffer>>();
-            mockSet.As<IQueryable<JobOffer>>().Setup(m => m.Provider).Returns(data.AsQueryable().Provider);
-            mockSet.As<IQueryable<JobOffer>>().Setup(m => m.Expression).Returns(data.AsQueryable().Expression);
-            mockSet.As<IQueryable<JobOffer>>().Setup(m => m.ElementType).Returns(data.AsQueryable().ElementType);
-            mockSet.As<IQueryable<JobOffer>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            var mockSet = new Mock<DbSet<JobOfferModel>>();
+            mockSet.As<IQueryable<JobOfferModel>>().Setup(m => m.Provider).Returns(data.AsQueryable().Provider);
+            mockSet.As<IQueryable<JobOfferModel>>().Setup(m => m.Expression).Returns(data.AsQueryable().Expression);
+            mockSet.As<IQueryable<JobOfferModel>>().Setup(m => m.ElementType).Returns(data.AsQueryable().ElementType);
+            mockSet.As<IQueryable<JobOfferModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
             // alternative to the previous line
             //mockSet.As<IQueryable<JobOffer>>().Setup(m => m.GetEnumerator()).Returns(data.AsQueryable().GetEnumerator());
 
             // Assigns the mockSet object to be returned when the context DbSet is queried.
-            offersDbContextMock.Setup(c => c.Set<JobOffer>()).Returns(mockSet.Object);
+            offersDbContextMock.Setup(c => c.Set<JobOfferModel>()).Returns(mockSet.Object);
             return offersDbContextMock;
         }
 

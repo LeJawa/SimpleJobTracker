@@ -7,7 +7,7 @@ namespace SimpleJobTrackerTests.API.Models
         [Fact]
         public void JobOfferExists()
         {
-            JobOffer jobOffer = new JobOffer();
+            JobOfferModel jobOffer = new JobOfferModel();
 
             Assert.NotNull(jobOffer);
         }
@@ -15,7 +15,7 @@ namespace SimpleJobTrackerTests.API.Models
         [Fact]
         public void IdProperty()
         {
-            JobOffer jobOffer = new JobOffer();
+            JobOfferModel jobOffer = new JobOfferModel();
 
             int id = 1;
 
@@ -27,7 +27,7 @@ namespace SimpleJobTrackerTests.API.Models
         [Fact]
         public void PositionProperty()
         {
-            JobOffer jobOffer = new JobOffer();
+            JobOfferModel jobOffer = new JobOfferModel();
             string position = "Position";
 
             jobOffer.Position = position;
@@ -39,7 +39,7 @@ namespace SimpleJobTrackerTests.API.Models
         [Fact]
         public void LocationProperty() 
         {
-            JobOffer jobOffer = new JobOffer();
+            JobOfferModel jobOffer = new JobOfferModel();
             string location = "Location";
 
             jobOffer.Location = location;
@@ -51,7 +51,7 @@ namespace SimpleJobTrackerTests.API.Models
         [Fact]
         public void SalaryRangeBottomProperty()
         {
-            JobOffer jobOffer = new JobOffer();
+            JobOfferModel jobOffer = new JobOfferModel();
             decimal salaryRangeBottom = 10m;
 
             jobOffer.SalaryRangeBottom = salaryRangeBottom;
@@ -63,7 +63,7 @@ namespace SimpleJobTrackerTests.API.Models
         [Fact]
         public void SalaryRangeTopProperty()
         {
-            JobOffer jobOffer = new JobOffer();
+            JobOfferModel jobOffer = new JobOfferModel();
             decimal salaryRangeTop = 10m;
 
             jobOffer.SalaryRangeTop = salaryRangeTop;
@@ -75,7 +75,7 @@ namespace SimpleJobTrackerTests.API.Models
         [Fact]
         public void StatusProperty()
         {
-            JobOffer jobOffer = new JobOffer();
+            JobOfferModel jobOffer = new JobOfferModel();
             StatusModel status = new StatusModel();
 
             jobOffer.Status = status;
@@ -87,7 +87,7 @@ namespace SimpleJobTrackerTests.API.Models
         [Fact]
         public void CompanyProperty()
         {
-            JobOffer jobOffer = new JobOffer();
+            JobOfferModel jobOffer = new JobOfferModel();
             CompanyModel company = new CompanyModel();
 
             jobOffer.Company = company;
@@ -99,7 +99,7 @@ namespace SimpleJobTrackerTests.API.Models
         [Fact]
         public void JobTypeProperty()
         {
-            JobOffer jobOffer = new JobOffer();
+            JobOfferModel jobOffer = new JobOfferModel();
             JobTypeModel jobType = new JobTypeModel();
 
             jobOffer.JobType = jobType;
@@ -111,7 +111,7 @@ namespace SimpleJobTrackerTests.API.Models
         [Fact]
         public void CommentsProperty()
         {
-            JobOffer jobOffer = new JobOffer();
+            JobOfferModel jobOffer = new JobOfferModel();
             string comments = "Comments";
 
             jobOffer.Comments = comments;
@@ -123,7 +123,7 @@ namespace SimpleJobTrackerTests.API.Models
         [Fact]
         public void CreationDateProperty()
         {
-            JobOffer jobOffer = new JobOffer();
+            JobOfferModel jobOffer = new JobOfferModel();
             DateTime creationDate = DateTime.Now;
 
             jobOffer.CreationDate = creationDate;
@@ -135,7 +135,7 @@ namespace SimpleJobTrackerTests.API.Models
         [Fact]
         public void UrlProperty()
         {
-            JobOffer jobOffer = new JobOffer();
+            JobOfferModel jobOffer = new JobOfferModel();
             string url = "Url";
 
             jobOffer.Url = url;
@@ -147,7 +147,7 @@ namespace SimpleJobTrackerTests.API.Models
         [Fact]
         public void IsDeletedProperty()
         {
-            JobOffer jobOffer = new JobOffer();
+            JobOfferModel jobOffer = new JobOfferModel();
             bool isDeleted = true;
 
             jobOffer.IsDeleted = isDeleted;
