@@ -1,9 +1,9 @@
 ﻿namespace SimpleJobTrackerTests.API.Models
 {
-    public class JobOfferTests
+    public class JobOfferModelTests
     {
         [Fact]
-        public void JobOfferExists()
+        public void JobOfferModelExists()
         {
             JobOfferModel jobOffer = new JobOfferModel();
 
