@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using SimpleJobTrackerAPI.Controllers;
-using SimpleJobTrackerAPI.Models;
 
 namespace SimpleJobTrackerTests.API.Controllers
 {
