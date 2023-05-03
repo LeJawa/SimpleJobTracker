@@ -129,6 +129,18 @@
             Assert.Equal(creationDate, jobOffer.CreationDate);
         }
 
+        // LastChangeDate
+        [Fact]
+        public void LastChangeDateProperty()
+        {
+            JobOfferModel jobOffer = new JobOfferModel();
+            DateTime lastChangeDate = DateTime.Now;
+
+            jobOffer.LastChange = lastChangeDate;
+
+            Assert.Equal(lastChangeDate, jobOffer.LastChange);
+        }
+
         // Url
         [Fact]
         public void UrlProperty()
