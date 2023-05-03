@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimpleJobTrackerAPI.Models;
 
 namespace SimpleJobTrackerAPI.Controllers
@@ -8,12 +10,18 @@ namespace SimpleJobTrackerAPI.Controllers
     public class OffersController : ControllerBase
     {
         private readonly OffersDbContext _context;
+        private readonly IMapper _mapper;
 
-        public OffersController(OffersDbContext context)
+        public OffersController(OffersDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
+        /// <summary>
+        /// Queries the database for the list of all the deleted offers
+        /// </summary>
+        /// <returns>A list of deleted Job Offers</returns>
         public Task<ActionResult<List<JobOfferDto>>> GetAllDeletedOffers()
         {
             throw new NotImplementedException();
@@ -24,10 +32,10 @@ namespace SimpleJobTrackerAPI.Controllers
             throw new NotImplementedException();
         }
 
-        [HttpGet]
-        public Task<ActionResult<List<JobOfferDto>>> GetAllOffers()
+        [HttpGet("all")]
+        public async Task<ActionResult<List<JobOfferDto>>> GetAllOffers()
         {
-            throw new NotImplementedException();
+            return await _context.JobOffers.Include(x => x.Company).Include(x => x.Status).Include(x => x.JobType).Select(x => _mapper.Map<JobOfferDto>(x)).ToListAsync();
         }
 
         public object PatchDeleteJobOffer(int jobOfferToDeleteId)
