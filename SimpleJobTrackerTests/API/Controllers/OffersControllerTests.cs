@@ -4,7 +4,7 @@ using Moq;
 using SimpleJobTrackerAPI.Controllers;
 using SimpleJobTrackerAPI.Models;
 
-namespace SimpleJobTrackerTests.API
+namespace SimpleJobTrackerTests.API.Controllers
 {
     public class OffersControllerTests
     {

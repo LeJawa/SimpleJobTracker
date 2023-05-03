@@ -28,4 +28,8 @@
     <ProjectReference Include="..\SimpleJobTrackerAPI\SimpleJobTrackerAPI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="API\Models\" />
+  </ItemGroup>
+
 </Project>
