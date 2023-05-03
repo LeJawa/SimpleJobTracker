@@ -1,6 +1,4 @@
-﻿using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-
-namespace SimpleJobTrackerTests.API.Models
+﻿namespace SimpleJobTrackerTests.API.Models
 {
     public class JobOfferTests
     {
@@ -37,7 +35,7 @@ namespace SimpleJobTrackerTests.API.Models
 
         // Location
         [Fact]
-        public void LocationProperty() 
+        public void LocationProperty()
         {
             JobOfferModel jobOffer = new JobOfferModel();
             string location = "Location";
