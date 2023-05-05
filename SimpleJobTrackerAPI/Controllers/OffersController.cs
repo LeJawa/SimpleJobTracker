@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimpleJobTrackerAPI.Models;
+using SimpleJobTrackerAPI.Services.OffersDbService;
 
 namespace SimpleJobTrackerAPI.Controllers
 {
@@ -9,48 +10,72 @@ namespace SimpleJobTrackerAPI.Controllers
     [ApiController]
     public class OffersController : ControllerBase
     {
-        private readonly OffersDbContext _context;
-        private readonly IMapper _mapper;
+        private readonly IOffersDbService _service;
 
-        public OffersController(OffersDbContext context, IMapper mapper)
+        public OffersController(IOffersDbService service)
         {
-            _context = context;
-            _mapper = mapper;
+            _service = service;
         }
 
         /// <summary>
         /// Queries the database for the list of all the deleted offers
         /// </summary>
         /// <returns>A list of deleted Job Offers</returns>
-        public Task<ActionResult<List<JobOfferDto>>> GetAllDeletedOffers()
+        [HttpGet("deleted")]
+        public async Task<ActionResult<List<JobOfferDto>>> GetAllDeletedOffers()
         {
-            throw new NotImplementedException();
+            return Ok(await _service.GetDeletedOffers());
         }
 
-        public Task<ActionResult<List<JobOfferDto>>> GetAllNonDeletedOffers()
+        [HttpGet]
+        public async Task<ActionResult<List<JobOfferDto>>> GetAllNonDeletedOffers()
         {
-            throw new NotImplementedException();
+            return Ok(await _service.GetJobOffers());
         }
 
         [HttpGet("all")]
         public async Task<ActionResult<List<JobOfferDto>>> GetAllOffers()
         {
-            return await _context.JobOffers.Include(x => x.Company).Include(x => x.Status).Include(x => x.JobType).Select(x => _mapper.Map<JobOfferDto>(x)).ToListAsync();
+            return Ok(await _service.GetAllOffers());
         }
 
-        public object PatchDeleteJobOffer(int jobOfferToDeleteId)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<JobOfferDto>> GetSingleOffer(int id)
         {
-            throw new NotImplementedException();
+            var jobOffer = await _service.GetSingleJobOffer(id);
+
+            if (jobOffer == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(jobOffer);
         }
 
-        public Task<ActionResult<JobOfferDto>> PostNewJobOffer(JobOfferDto newJobOffer)
+        [HttpDelete]
+        public async Task<IActionResult> PatchDeleteJobOffer(int jobOfferToDeleteId)
         {
-            throw new NotImplementedException();
+            if (await _service.DeleteJobOffer(jobOfferToDeleteId))
+                return NoContent();
+
+            return BadRequest();
         }
 
-        public Task<IActionResult> PutJobOffer(int id, JobOfferDto updatedJobOffer)
+        [HttpPost]
+        public async Task<ActionResult<JobOfferDto>> PostNewJobOffer(JobOfferDto newJobOffer)
         {
-            throw new NotImplementedException();
+            var createdJobOffer = await _service.AddJobOffer(newJobOffer);
+
+            return CreatedAtAction(nameof(GetSingleOffer), new {id = createdJobOffer.Id}, createdJobOffer);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> PutJobOffer(JobOfferDto updatedJobOffer)
+        {
+            if (await _service.UpdateJobOffer(updatedJobOffer))
+                return NoContent();
+
+            return BadRequest();
         }
     }
 }
