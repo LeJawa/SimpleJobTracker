@@ -77,13 +77,5 @@ namespace SimpleJobTrackerAPI.Controllers
 
             return BadRequest();
         }
-
-        [HttpPost]
-        public async Task<ActionResult<JobOfferDto>> UpsertJobOffer(JobOfferDto newJobOffer)
-        {
-            var createdJobOffer = await _service.UpsertJobOffer(newJobOffer);
-
-            return CreatedAtAction(nameof(GetSingleJobOffer), new { id = createdJobOffer.Id }, createdJobOffer);
-        }
     }
 }

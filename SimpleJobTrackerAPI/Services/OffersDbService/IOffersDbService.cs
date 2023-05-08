@@ -20,6 +20,5 @@ namespace SimpleJobTrackerAPI.Services.OffersDbService
         public Task<JobOfferDto> AddJobOffer(JobOfferDto jobOffer);
 
         public Task<bool> UpdateJobOffer(JobOfferDto jobOffer);
-        public Task<JobOfferDto> UpsertJobOffer(JobOfferDto newJobOffer);
     }
 }
