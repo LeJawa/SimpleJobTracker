@@ -1,5 +1,7 @@
-using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using SimpleJobTrackerAPI.Controllers;
 using SimpleJobTrackerAPI.Data;
+using SimpleJobTrackerAPI.Services.OffersDbService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IOffersDbService, OffersDbService>();
+builder.Services.AddDbContext<OffersDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("OffersDbConnection")));
 
 builder.Services.AddAutoMapper(typeof(JobOffersProfile));
 
