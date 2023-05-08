@@ -58,5 +58,10 @@ namespace SimpleJobTrackerAPI.Services.OffersDbService
         {
             throw new NotImplementedException();
         }
+
+        public Task<JobOfferDto> UpsertJobOffer(JobOfferDto newJobOffer)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -53,7 +53,7 @@ namespace SimpleJobTrackerAPI.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> PatchDeleteJobOffer(int jobOfferToDeleteId)
+        public async Task<IActionResult> DeleteJobOffer(int jobOfferToDeleteId)
         {
             if (await _service.DeleteJobOffer(jobOfferToDeleteId))
                 return NoContent();
@@ -62,7 +62,7 @@ namespace SimpleJobTrackerAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<JobOfferDto>> PostNewJobOffer(JobOfferDto newJobOffer)
+        public async Task<ActionResult<JobOfferDto>> AddNewJobOffer(JobOfferDto newJobOffer)
         {
             var createdJobOffer = await _service.AddJobOffer(newJobOffer);
 
@@ -70,12 +70,20 @@ namespace SimpleJobTrackerAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> PutJobOffer(JobOfferDto updatedJobOffer)
+        public async Task<IActionResult> UpdateJobOffer(JobOfferDto updatedJobOffer)
         {
             if (await _service.UpdateJobOffer(updatedJobOffer))
                 return NoContent();
 
             return BadRequest();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<JobOfferDto>> UpsertJobOffer(JobOfferDto newJobOffer)
+        {
+            var createdJobOffer = await _service.UpsertJobOffer(newJobOffer);
+
+            return CreatedAtAction(nameof(GetSingleOffer), new { id = createdJobOffer.Id }, createdJobOffer);
         }
     }
 }

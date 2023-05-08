@@ -92,6 +92,11 @@ namespace SimpleJobTrackerTests.API.Controllers
 
                 return Task.FromResult(true);
             }
+
+            public Task<JobOfferDto> UpsertJobOffer(JobOfferDto newJobOffer)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         // GetAllOffers
@@ -151,7 +156,7 @@ namespace SimpleJobTrackerTests.API.Controllers
             var newJobOffer = new JobOfferDto() { Position = "New Position" };
 
             // Act
-            var actionResult = (await controller.PostNewJobOffer(newJobOffer)).Result;
+            var actionResult = (await controller.AddNewJobOffer(newJobOffer)).Result;
 
             // Assert
             var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(actionResult);
@@ -172,7 +177,7 @@ namespace SimpleJobTrackerTests.API.Controllers
             var updatedJobOffer = new JobOfferDto() { Id = updatedJobOfferId, Position = "Updated Position" };
 
             // Act
-            var actionResult = await controller.PutJobOffer(updatedJobOffer);
+            var actionResult = await controller.UpdateJobOffer(updatedJobOffer);
 
             // Assert
             Assert.IsType<NoContentResult>(actionResult);
@@ -190,7 +195,7 @@ namespace SimpleJobTrackerTests.API.Controllers
             int jobOfferToDeleteId = 1;
 
             // Act
-            var result = await controller.PatchDeleteJobOffer(jobOfferToDeleteId);
+            var result = await controller.DeleteJobOffer(jobOfferToDeleteId);
 
             // Assert
             Assert.IsType<NoContentResult>(result);
@@ -205,7 +210,7 @@ namespace SimpleJobTrackerTests.API.Controllers
             int jobOfferToDeleteId = -1;
 
             // Act
-            var result = await controller.PatchDeleteJobOffer(jobOfferToDeleteId);
+            var result = await controller.DeleteJobOffer(jobOfferToDeleteId);
 
             // Assert
             Assert.IsType<BadRequestResult>(result);
