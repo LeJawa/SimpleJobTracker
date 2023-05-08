@@ -1,4 +1,4 @@
-﻿namespace SimpleJobTrackerAPI.Models
+﻿namespace SimpleJobTrackerAPI.Data
 {
     public class JobOfferDto
     {

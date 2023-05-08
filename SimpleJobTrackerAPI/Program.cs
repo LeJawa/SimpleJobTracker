@@ -1,5 +1,5 @@
 using AutoMapper;
-using SimpleJobTrackerAPI.Models;
+using SimpleJobTrackerAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

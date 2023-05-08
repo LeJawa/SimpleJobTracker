@@ -7,6 +7,6 @@ namespace SimpleJobTrackerAPI.Controllers
     {
         public OffersDbContext(DbContextOptions options) : base(options) { }
 
-        public DbSet<JobOfferModel> JobOffers { get; set; }
+        public virtual DbSet<JobOffer> JobOffers { get; set; }
     }
 }

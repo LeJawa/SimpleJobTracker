@@ -25,7 +25,7 @@ namespace SimpleJobTrackerTests.API.Controllers
 
             var offersDbContext = new OffersDbContext(mockOptions);
             int id = 1;
-            var jobOffer = new JobOfferModel() { Id = id };
+            var jobOffer = new JobOffer() { Id = id };
 
             offersDbContext.JobOffers.Add(jobOffer);
             offersDbContext.SaveChanges();

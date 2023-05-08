@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SimpleJobTrackerAPI.Models;
+using SimpleJobTrackerAPI.Data;
 
 namespace SimpleJobTrackerAPI.Services.OffersDbService
 {

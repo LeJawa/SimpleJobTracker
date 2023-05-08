@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SimpleJobTrackerAPI.Data;
 
 namespace SimpleJobTrackerTests.API.Controllers
 {

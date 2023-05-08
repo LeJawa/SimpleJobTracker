@@ -1,11 +1,13 @@
-﻿namespace SimpleJobTrackerTests.API.Models
+﻿using SimpleJobTrackerAPI.Enums;
+
+namespace SimpleJobTrackerTests.API.Models
 {
-    public class JobOfferModelTests
+    public class JobOfferTests
     {
         [Fact]
-        public void JobOfferModelExists()
+        public void JobOfferExists()
         {
-            JobOfferModel jobOffer = new JobOfferModel();
+            JobOffer jobOffer = new JobOffer();
 
             Assert.NotNull(jobOffer);
         }
@@ -13,7 +15,7 @@
         [Fact]
         public void IdProperty()
         {
-            JobOfferModel jobOffer = new JobOfferModel();
+            JobOffer jobOffer = new JobOffer();
 
             int id = 1;
 
@@ -25,7 +27,7 @@
         [Fact]
         public void PositionProperty()
         {
-            JobOfferModel jobOffer = new JobOfferModel();
+            JobOffer jobOffer = new JobOffer();
             string position = "Position";
 
             jobOffer.Position = position;
@@ -37,7 +39,7 @@
         [Fact]
         public void LocationProperty()
         {
-            JobOfferModel jobOffer = new JobOfferModel();
+            JobOffer jobOffer = new JobOffer();
             string location = "Location";
 
             jobOffer.Location = location;
@@ -49,7 +51,7 @@
         [Fact]
         public void SalaryRangeBottomProperty()
         {
-            JobOfferModel jobOffer = new JobOfferModel();
+            JobOffer jobOffer = new JobOffer();
             decimal salaryRangeBottom = 10m;
 
             jobOffer.SalaryRangeBottom = salaryRangeBottom;
@@ -61,7 +63,7 @@
         [Fact]
         public void SalaryRangeTopProperty()
         {
-            JobOfferModel jobOffer = new JobOfferModel();
+            JobOffer jobOffer = new JobOffer();
             decimal salaryRangeTop = 10m;
 
             jobOffer.SalaryRangeTop = salaryRangeTop;
@@ -73,8 +75,8 @@
         [Fact]
         public void StatusProperty()
         {
-            JobOfferModel jobOffer = new JobOfferModel();
-            StatusModel status = new StatusModel();
+            JobOffer jobOffer = new JobOffer();
+            JobStatus status = JobStatus.Other;
 
             jobOffer.Status = status;
 
@@ -85,8 +87,8 @@
         [Fact]
         public void CompanyProperty()
         {
-            JobOfferModel jobOffer = new JobOfferModel();
-            CompanyModel company = new CompanyModel();
+            JobOffer jobOffer = new JobOffer();
+            Company company = new Company();
 
             jobOffer.Company = company;
 
@@ -97,8 +99,8 @@
         [Fact]
         public void JobTypeProperty()
         {
-            JobOfferModel jobOffer = new JobOfferModel();
-            JobTypeModel jobType = new JobTypeModel();
+            JobOffer jobOffer = new JobOffer();
+            JobType jobType = JobType.Remote;
 
             jobOffer.JobType = jobType;
 
@@ -109,7 +111,7 @@
         [Fact]
         public void CommentsProperty()
         {
-            JobOfferModel jobOffer = new JobOfferModel();
+            JobOffer jobOffer = new JobOffer();
             string comments = "Comments";
 
             jobOffer.Comments = comments;
@@ -121,7 +123,7 @@
         [Fact]
         public void CreationDateProperty()
         {
-            JobOfferModel jobOffer = new JobOfferModel();
+            JobOffer jobOffer = new JobOffer();
             DateTime creationDate = DateTime.Now;
 
             jobOffer.CreationDate = creationDate;
@@ -133,7 +135,7 @@
         [Fact]
         public void LastChangeDateProperty()
         {
-            JobOfferModel jobOffer = new JobOfferModel();
+            JobOffer jobOffer = new JobOffer();
             DateTime lastChangeDate = DateTime.Now;
 
             jobOffer.LastChange = lastChangeDate;
@@ -145,7 +147,7 @@
         [Fact]
         public void UrlProperty()
         {
-            JobOfferModel jobOffer = new JobOfferModel();
+            JobOffer jobOffer = new JobOffer();
             string url = "Url";
 
             jobOffer.Url = url;
@@ -157,7 +159,7 @@
         [Fact]
         public void IsDeletedProperty()
         {
-            JobOfferModel jobOffer = new JobOfferModel();
+            JobOffer jobOffer = new JobOffer();
             bool isDeleted = true;
 
             jobOffer.IsDeleted = isDeleted;

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SimpleJobTrackerTests.API.Models
 {
-    public class CompanyModelTests
+    public class CompanyTests
     {
         [Fact]
         public void CompanyModelExists()
         {
-            CompanyModel company = new CompanyModel();
+            Company company = new Company();
 
             Assert.NotNull(company);
         }
@@ -19,7 +19,7 @@ namespace SimpleJobTrackerTests.API.Models
         [Fact]
         public void IdProperty()
         {
-            CompanyModel company = new CompanyModel();
+            Company company = new Company();
             int id = 1;
 
             company.Id = id;
@@ -30,7 +30,7 @@ namespace SimpleJobTrackerTests.API.Models
         [Fact]
         public void NameProperty()
         {
-            CompanyModel company = new CompanyModel();
+            Company company = new Company();
             string name = "Name";
 
             company.Name = name;

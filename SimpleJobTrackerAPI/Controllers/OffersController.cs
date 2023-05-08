@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SimpleJobTrackerAPI.Models;
+using SimpleJobTrackerAPI.Data;
 using SimpleJobTrackerAPI.Services.OffersDbService;
 
 namespace SimpleJobTrackerAPI.Controllers
