@@ -5,13 +5,11 @@ namespace SimpleJobTrackerTests.API.Controllers
 {
     public class OffersControllerTests
     {
-        private class TestOffersDbService : IOffersDbService
+        private List<JobOfferDto> _offers
         {
-            List<JobOfferDto> _orders;
-
-            public TestOffersDbService()
+            get
             {
-                _orders = new List<JobOfferDto>()
+                var offers = new List<JobOfferDto>()
                 {
                     new JobOfferDto() { Id = 1, Position = "Position 1" },
                     new JobOfferDto() { Id = 2, Position = "Position 2" },
@@ -19,91 +17,21 @@ namespace SimpleJobTrackerTests.API.Controllers
                     new JobOfferDto() { Id = 4, Position = "Position 4" },
                     new JobOfferDto() { Id = 5, Position = "Position 5" },
                 };
-            }
 
-            public static int GetAllOffersCount { get; private set; }
-            public Task<List<JobOfferDto>> GetAllOffers()
-            {
-                GetAllOffersCount = _orders.Count;
-
-                return Task.FromResult(_orders);
-            }
-
-            public Task<JobOfferDto?> GetSingleJobOffer(int id)
-            {
-                try
-                {
-                    return Task.FromResult(_orders?.Single(x => x.Id == id));
-                }
-                catch
-                {
-                    return Task.FromResult(null as JobOfferDto);
-                }
-            }
-
-            public static int GetJobOffersCount { get; private set; }
-            public Task<List<JobOfferDto>> GetJobOffers()
-            {
-                GetJobOffersCount = _orders.Count;
-
-                return Task.FromResult(_orders);
-            }
-
-            public static int GetDeletedOffersCount { get; private set; }
-            public Task<List<JobOfferDto>> GetDeletedOffers()
-            {
-                GetDeletedOffersCount = _orders.Count;
-
-                return Task.FromResult(_orders);
-            }
-
-            public Task<bool> DeleteJobOffer(int id)
-            {
-                try
-                {
-                    _orders.RemoveAt(_orders.FindIndex(x => x.Id == id));
-                }
-                catch
-                {
-                    return Task.FromResult(false);
-                }
-
-                return Task.FromResult(true);
-            }
-
-            public Task<JobOfferDto> AddJobOffer(JobOfferDto jobOffer)
-            {
-                jobOffer.Id = _orders.Count + 1;
-                _orders.Add(jobOffer);
-
-                return Task.FromResult(jobOffer);
-            }
-
-            public Task<bool> UpdateJobOffer(JobOfferDto jobOffer)
-            {
-                try
-                {
-                    _orders.Single(x => x.Id == jobOffer.Id).Position = jobOffer.Position;
-                }
-                catch
-                {
-                    return Task.FromResult(false);
-                }
-
-                return Task.FromResult(true);
-            }
-
-            public Task<JobOfferDto> UpsertJobOffer(JobOfferDto newJobOffer)
-            {
-                throw new NotImplementedException();
+                return offers;
             }
         }
+
 
         // GetAllOffers
         [Fact]
         public async Task GetAllOffersReturnsAllOffersAsync()
         {
-            var controller = new OffersController(new TestOffersDbService());
+            // Arrange
+            var mockOffersDbService = new Mock<IOffersDbService>();
+            mockOffersDbService.Setup(m => m.GetAllOffers()).Returns(Task.FromResult(_offers));
+
+            var controller = new OffersController(mockOffersDbService.Object);
 
             // Act
             var actionResult = (await controller.GetAllOffers()).Result;
@@ -111,7 +39,7 @@ namespace SimpleJobTrackerTests.API.Controllers
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
             var jobOffers = Assert.IsAssignableFrom<IEnumerable<JobOfferDto>>(okResult.Value);
-            Assert.Equal(TestOffersDbService.GetAllOffersCount, jobOffers.Count());
+            Assert.Equal(_offers.Count, jobOffers.Count());
         }
 
         // GetAllNonDeletedOffers
@@ -119,7 +47,10 @@ namespace SimpleJobTrackerTests.API.Controllers
         public async Task GetAllNonDeletedOffersReturnsNonDeletedOffersAsync()
         {
             // Arrange
-            var controller = new OffersController(new TestOffersDbService());
+            var mockOffersDbService = new Mock<IOffersDbService>();
+            mockOffersDbService.Setup(m => m.GetJobOffers()).Returns(Task.FromResult(_offers));
+
+            var controller = new OffersController(mockOffersDbService.Object);
 
             // Act
             var actionResult = (await controller.GetAllNonDeletedOffers()).Result;
@@ -127,7 +58,7 @@ namespace SimpleJobTrackerTests.API.Controllers
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
             var jobOffers = Assert.IsAssignableFrom<IEnumerable<JobOfferDto>>(okResult.Value);
-            Assert.Equal(TestOffersDbService.GetJobOffersCount, jobOffers.Count());
+            Assert.Equal(_offers.Count, jobOffers.Count());
         }
 
         // GetAllDeletedOffers
@@ -135,7 +66,10 @@ namespace SimpleJobTrackerTests.API.Controllers
         public async Task GetAllDeletedOffersReturnsDeletedOffersAsync()
         {
             // Arrange
-            var controller = new OffersController(new TestOffersDbService());
+            var mockOffersDbService = new Mock<IOffersDbService>();
+            mockOffersDbService.Setup(m => m.GetDeletedOffers()).Returns(Task.FromResult(_offers));
+
+            var controller = new OffersController(mockOffersDbService.Object);
 
             // Act
             var actionResult = (await controller.GetAllDeletedOffers()).Result;
@@ -143,17 +77,21 @@ namespace SimpleJobTrackerTests.API.Controllers
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
             var jobOffers = Assert.IsAssignableFrom<IEnumerable<JobOfferDto>>(okResult.Value);
-            Assert.Equal(TestOffersDbService.GetDeletedOffersCount, jobOffers.Count());
+            Assert.Equal(_offers.Count, jobOffers.Count());
         }
 
-        // PostNewJobOffer
+        // AddNewJobOffer
         [Fact]
-        public async Task PostNewJobOfferCreatesNewJobOfferAsync()
+        public async Task AddNewJobOfferCreatesNewJobOfferAsync()
         {
             // Arrange
-            var controller = new OffersController(new TestOffersDbService());
-
+            var mockOffersDbService = new Mock<IOffersDbService>();
             var newJobOffer = new JobOfferDto() { Position = "New Position" };
+            var addedJobOffer = new JobOfferDto() { Id = 1, Position = newJobOffer.Position };
+
+            mockOffersDbService.Setup(m => m.AddJobOffer(newJobOffer)).Returns(Task.FromResult(addedJobOffer));
+
+            var controller = new OffersController(mockOffersDbService.Object);
 
             // Act
             var actionResult = (await controller.AddNewJobOffer(newJobOffer)).Result;
@@ -162,26 +100,47 @@ namespace SimpleJobTrackerTests.API.Controllers
             var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(actionResult);
             var createdJobOffer = Assert.IsType<JobOfferDto>(createdAtActionResult.Value);
             Assert.Equal(newJobOffer.Position, createdJobOffer.Position);
-            Assert.True(createdJobOffer.Id != 0);
+            Assert.True(createdJobOffer.Id == addedJobOffer.Id);
         }
 
-        // PutJobOffer
+        // UpdateJobOffer
         [Fact]
-        public async Task PutJobOfferSavesJobOfferAsync()
+        public async Task UpdateJobOfferCorrecltySavesJobOfferAsync()
         {
             // Arrange
-            var service = new TestOffersDbService();
-            var controller = new OffersController(service);
+            var mockOffersDbService = new Mock<IOffersDbService>();
 
             int updatedJobOfferId = 1;
             var updatedJobOffer = new JobOfferDto() { Id = updatedJobOfferId, Position = "Updated Position" };
+
+            mockOffersDbService.Setup(m => m.UpdateJobOffer(updatedJobOffer)).Returns(Task.FromResult(true));
+
+            var controller = new OffersController(mockOffersDbService.Object);
 
             // Act
             var actionResult = await controller.UpdateJobOffer(updatedJobOffer);
 
             // Assert
             Assert.IsType<NoContentResult>(actionResult);
-            Assert.Equal(updatedJobOffer.Position, service.GetSingleJobOffer(updatedJobOfferId).Result.Position);
+        }
+        [Fact]
+        public async Task UpdateJobOfferCannotUpdateJobOffer()
+        {
+            // Arrange
+            var mockOffersDbService = new Mock<IOffersDbService>();
+
+            int updatedJobOfferId = 1;
+            var updatedJobOffer = new JobOfferDto() { Id = updatedJobOfferId, Position = "Updated Position" };
+
+            mockOffersDbService.Setup(m => m.UpdateJobOffer(updatedJobOffer)).Returns(Task.FromResult(false));
+
+            var controller = new OffersController(mockOffersDbService.Object);
+
+            // Act
+            var actionResult = await controller.UpdateJobOffer(updatedJobOffer);
+
+            // Assert
+            Assert.IsType<BadRequestResult>(actionResult);
         }
 
 
@@ -190,9 +149,11 @@ namespace SimpleJobTrackerTests.API.Controllers
         public async Task PatchDeleteJobOfferReturnsNoContentResult()
         {
             // Arrange
-            var controller = new OffersController(new TestOffersDbService());
-
+            var mockOffersDbService = new Mock<IOffersDbService>();
             int jobOfferToDeleteId = 1;
+            mockOffersDbService.Setup(m => m.DeleteJobOffer(jobOfferToDeleteId)).Returns(Task.FromResult(true));
+
+            var controller = new OffersController(mockOffersDbService.Object);
 
             // Act
             var result = await controller.DeleteJobOffer(jobOfferToDeleteId);
@@ -205,9 +166,11 @@ namespace SimpleJobTrackerTests.API.Controllers
         public async Task PatchDeleteJobOfferReturnsBadRequestIfOfferNotFound()
         {
             // Arrange
-            var controller = new OffersController(new TestOffersDbService());
+            var mockOffersDbService = new Mock<IOffersDbService>();
+            int jobOfferToDeleteId = 1;
+            mockOffersDbService.Setup(m => m.DeleteJobOffer(jobOfferToDeleteId)).Returns(Task.FromResult(false));
 
-            int jobOfferToDeleteId = -1;
+            var controller = new OffersController(mockOffersDbService.Object);
 
             // Act
             var result = await controller.DeleteJobOffer(jobOfferToDeleteId);
@@ -216,14 +179,18 @@ namespace SimpleJobTrackerTests.API.Controllers
             Assert.IsType<BadRequestResult>(result);
         }
 
-        // GetSingleOffer
+        // GetSingleJobOffer
         [Fact]
-        public async Task GetSingleOfferReturnsCorrectOffer()
+        public async Task GetSingleJobOfferReturnsCorrectOffer()
         {
-            var controller = new OffersController(new TestOffersDbService());
+            var mockOffersDbService = new Mock<IOffersDbService>();
             int id = 1;
+            var gotJobOffer = new JobOfferDto() { Id = id, Position = "Position" };
+            mockOffersDbService.Setup(m => m.GetSingleJobOffer(id)).Returns(Task.FromResult((JobOfferDto?)gotJobOffer));
 
-            var result = (await controller.GetSingleOffer(id)).Result;
+            var controller = new OffersController(mockOffersDbService.Object);
+
+            var result = (await controller.GetSingleJobOffer(id)).Result;
 
             var okResult = Assert.IsType<OkObjectResult>(result);
             var jobOffer = Assert.IsType<JobOfferDto>(okResult.Value);
@@ -231,12 +198,15 @@ namespace SimpleJobTrackerTests.API.Controllers
         }
 
         [Fact]
-        public async Task GetSingleOfferReturnsNotFound()
+        public async Task GetSingleJobOfferReturnsNotFound()
         {
-            var controller = new OffersController(new TestOffersDbService());
-            int id = -1;
+            var mockOffersDbService = new Mock<IOffersDbService>();
+            int id = 1;
+            mockOffersDbService.Setup(m => m.GetSingleJobOffer(id)).Returns(Task.FromResult(null as JobOfferDto));
 
-            var result = (await controller.GetSingleOffer(id)).Result;
+            var controller = new OffersController(mockOffersDbService.Object);
+
+            var result = (await controller.GetSingleJobOffer(id)).Result;
 
             Assert.IsType<NotFoundResult>(result);
         }

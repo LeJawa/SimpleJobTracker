@@ -40,7 +40,7 @@ namespace SimpleJobTrackerAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<JobOfferDto>> GetSingleOffer(int id)
+        public async Task<ActionResult<JobOfferDto>> GetSingleJobOffer(int id)
         {
             var jobOffer = await _service.GetSingleJobOffer(id);
 
@@ -66,7 +66,7 @@ namespace SimpleJobTrackerAPI.Controllers
         {
             var createdJobOffer = await _service.AddJobOffer(newJobOffer);
 
-            return CreatedAtAction(nameof(GetSingleOffer), new {id = createdJobOffer.Id}, createdJobOffer);
+            return CreatedAtAction(nameof(GetSingleJobOffer), new {id = createdJobOffer.Id}, createdJobOffer);
         }
 
         [HttpPut]
@@ -83,7 +83,7 @@ namespace SimpleJobTrackerAPI.Controllers
         {
             var createdJobOffer = await _service.UpsertJobOffer(newJobOffer);
 
-            return CreatedAtAction(nameof(GetSingleOffer), new { id = createdJobOffer.Id }, createdJobOffer);
+            return CreatedAtAction(nameof(GetSingleJobOffer), new { id = createdJobOffer.Id }, createdJobOffer);
         }
     }
 }
