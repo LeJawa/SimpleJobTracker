@@ -37,7 +37,7 @@ namespace SimpleJobTrackerAPI.Controllers
             return Ok(await _service.GetAllOffers());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<JobOfferDto>> GetSingleJobOffer(int id)
         {
             var jobOffer = await _service.GetSingleJobOffer(id);
@@ -50,10 +50,10 @@ namespace SimpleJobTrackerAPI.Controllers
             return Ok(jobOffer);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteJobOffer(int jobOfferToDeleteId)
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteJobOffer(int id)
         {
-            if (await _service.DeleteJobOffer(jobOfferToDeleteId))
+            if (await _service.DeleteJobOffer(id))
                 return NoContent();
 
             return BadRequest();

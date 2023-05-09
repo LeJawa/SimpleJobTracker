@@ -32,9 +32,22 @@ namespace SimpleJobTrackerAPI.Services.OffersDbService
             return _mapper.Map<JobOfferDto>(jobOffer);
         }
 
-        public Task<bool> DeleteJobOffer(int id)
+        public async Task<bool> DeleteJobOffer(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var jobOfferToBeRemoved = await _context.JobOffers.SingleAsync(x => x.Id == id);
+
+                jobOfferToBeRemoved.IsDeleted = true;
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                // TODO: Log exception
+                return false;
+            }
         }
 
         public async Task<List<JobOfferDto>> GetAllOffers()
