@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SimpleJobTrackerAPI.Controllers;
 using SimpleJobTrackerAPI.Data;
-using SimpleJobTrackerAPI.Services.OffersDbService;
+using SimpleJobTrackerAPI.Services.OffersDb;
 
 var builder = WebApplication.CreateBuilder(args);
 

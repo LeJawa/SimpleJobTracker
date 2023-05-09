@@ -5,7 +5,7 @@ using SimpleJobTrackerAPI.Data;
 using SimpleJobTrackerAPI.Enums;
 using SimpleJobTrackerAPI.Models;
 
-namespace SimpleJobTrackerAPI.Services.OffersDbService
+namespace SimpleJobTrackerAPI.Services.OffersDb
 {
     public class OffersDbService : IOffersDbService
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SimpleJobTrackerAPI.Data;
 
-namespace SimpleJobTrackerAPI.Services.OffersDbService
+namespace SimpleJobTrackerAPI.Services.OffersDb
 {
     public interface IOffersDbService
     {
