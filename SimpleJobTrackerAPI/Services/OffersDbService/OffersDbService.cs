@@ -75,9 +75,21 @@ namespace SimpleJobTrackerAPI.Services.OffersDbService
             return offers;
         }
 
-        public Task<JobOfferDto?> GetSingleJobOffer(int id)
+        public async Task<JobOfferDto?> GetSingleJobOffer(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var jobOffer = await _context.JobOffers.SingleAsync(x => x.Id == id);
+
+                if (jobOffer.IsDeleted) { throw new KeyNotFoundException(); }
+
+                return _mapper.Map<JobOfferDto>(jobOffer);
+            }
+            catch (Exception)
+            {
+                // TODO: Log exception
+                return null;
+            }
         }
 
         public Task<bool> UpdateJobOffer(JobOfferDto jobOffer)
