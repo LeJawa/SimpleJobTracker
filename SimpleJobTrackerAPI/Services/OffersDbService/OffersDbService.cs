@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SimpleJobTrackerAPI.Controllers;
 using SimpleJobTrackerAPI.Data;
+using SimpleJobTrackerAPI.Enums;
 using SimpleJobTrackerAPI.Models;
 
 namespace SimpleJobTrackerAPI.Services.OffersDbService
@@ -36,7 +37,7 @@ namespace SimpleJobTrackerAPI.Services.OffersDbService
         {
             try
             {
-                var jobOfferToBeRemoved = await _context.JobOffers.SingleAsync(x => x.Id == id);
+                var jobOfferToBeRemoved = await _context.JobOffers.Include(x => x.Company).SingleAsync(x => x.Id == id);
 
                 if (jobOfferToBeRemoved.IsDeleted) { throw new KeyNotFoundException(); } // Offer already deleted
 
@@ -65,13 +66,13 @@ namespace SimpleJobTrackerAPI.Services.OffersDbService
 
         public async Task<List<JobOfferDto>> GetDeletedOffers()
         {
-            var deletedOffers = await _context.JobOffers.Where(x => x.IsDeleted).Select(x => _mapper.Map<JobOfferDto>(x)).ToListAsync();
+            var deletedOffers = await _context.JobOffers.Include(x => x.Company).Where(x => x.IsDeleted).Select(x => _mapper.Map<JobOfferDto>(x)).ToListAsync();
             return deletedOffers;
         }
 
         public async Task<List<JobOfferDto>> GetJobOffers()
         {
-            var offers = await _context.JobOffers.Where(x => !x.IsDeleted).Select(x => _mapper.Map<JobOfferDto>(x)).ToListAsync();
+            var offers = await _context.JobOffers.Include(x => x.Company).Where(x => !x.IsDeleted).Select(x => _mapper.Map<JobOfferDto>(x)).ToListAsync();
             return offers;
         }
 
@@ -79,7 +80,7 @@ namespace SimpleJobTrackerAPI.Services.OffersDbService
         {
             try
             {
-                var jobOffer = await _context.JobOffers.SingleAsync(x => x.Id == id);
+                var jobOffer = await _context.JobOffers.Include(x => x.Company).SingleAsync(x => x.Id == id);
 
                 if (jobOffer.IsDeleted) { throw new KeyNotFoundException(); }
 
@@ -92,9 +93,41 @@ namespace SimpleJobTrackerAPI.Services.OffersDbService
             }
         }
 
-        public Task<bool> UpdateJobOffer(JobOfferDto jobOffer)
+        public async Task<bool> UpdateJobOffer(JobOfferDto jobOffer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var existingJobOffer = await _context.JobOffers.Include(x => x.Company).SingleAsync(x => x.Id == jobOffer.Id);
+
+                if (existingJobOffer.IsDeleted) { throw new KeyNotFoundException(); }
+
+                existingJobOffer.Position = jobOffer.Position;
+
+                // TODO: Update company instead of adding new one
+                existingJobOffer.Company = new Company() { Name = jobOffer.CompanyName };
+
+                existingJobOffer.Location = jobOffer.Location;
+                existingJobOffer.Url = jobOffer.Url;
+
+                existingJobOffer.JobType = Enum.Parse<JobType>(jobOffer.JobTypeDescription);
+                existingJobOffer.Status = Enum.Parse<JobStatus>(jobOffer.StatusDescription);
+
+                existingJobOffer.SalaryRangeBottom = jobOffer.SalaryRangeBottom;
+                existingJobOffer.SalaryRangeTop = jobOffer.SalaryRangeTop;
+
+                existingJobOffer.Comments = jobOffer.Comments;
+
+                existingJobOffer.LastChange = DateTime.Now;
+
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                // TODO: Log exception
+                return false;
+            }
         }
     }
 }
