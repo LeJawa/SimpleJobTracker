@@ -16,8 +16,8 @@ namespace SimpleJobTrackerAPI.Data
 
             CreateMap<JobOfferDto, JobOffer>()
                 .ForMember(dest => dest.Company, opt => opt.MapFrom(src => new Company() { Name = src.CompanyName }))
-                .ForMember(dest => dest.JobType, opt => opt.MapFrom(src => Enum.Parse(typeof(JobType), src.JobTypeDescription)))
-                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Enum.Parse(typeof(JobStatus), src.StatusDescription)));
+                .ForMember(dest => dest.JobType, opt => opt.MapFrom(src => Enum.Parse<JobType>(src.JobTypeDescription)))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Enum.Parse<JobStatus>(src.StatusDescription)));
         }
     }
 }
