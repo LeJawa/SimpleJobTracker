@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimpleJobTrackerAPI.Controllers;
 using SimpleJobTrackerAPI.Data;
+using SimpleJobTrackerAPI.Models;
 
 namespace SimpleJobTrackerAPI.Services.OffersDbService
 {
@@ -11,16 +11,25 @@ namespace SimpleJobTrackerAPI.Services.OffersDbService
         private readonly OffersDbContext _context;
         private readonly IMapper _mapper;
 
-        public OffersDbService(OffersDbContext context, IMapper mapper) 
+        public OffersDbService(OffersDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
 
-        public Task<JobOfferDto> AddJobOffer(JobOfferDto jobOffer)
+        public async Task<JobOfferDto> AddJobOffer(JobOfferDto jobOfferDto)
         {
-            throw new NotImplementedException();
+            // Convert JobOfferDto into JobOffer
+            var jobOffer = _mapper.Map<JobOffer>(jobOfferDto);
+
+
+            // TODO: check if company already exists
+
+            await _context.JobOffers.AddAsync(jobOffer);
+            await _context.SaveChangesAsync();
+
+            return _mapper.Map<JobOfferDto>(jobOffer);
         }
 
         public Task<bool> DeleteJobOffer(int id)

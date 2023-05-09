@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using SimpleJobTrackerAPI.Data;
 using SimpleJobTrackerAPI.Services.OffersDbService;
 
@@ -66,7 +64,7 @@ namespace SimpleJobTrackerAPI.Controllers
         {
             var createdJobOffer = await _service.AddJobOffer(newJobOffer);
 
-            return CreatedAtAction(nameof(GetSingleJobOffer), new {id = createdJobOffer.Id}, createdJobOffer);
+            return CreatedAtAction(nameof(GetSingleJobOffer), new { id = createdJobOffer.Id }, createdJobOffer);
         }
 
         [HttpPut]
