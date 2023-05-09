@@ -2,6 +2,7 @@
 {
     public enum JobType
     {
+        Undefined = 0,
         Hybrid,
         OnSite,
         Remote

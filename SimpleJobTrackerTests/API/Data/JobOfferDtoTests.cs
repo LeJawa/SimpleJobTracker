@@ -72,6 +72,7 @@ namespace SimpleJobTrackerTests.API.Data
         }
 
         // StatusDescription
+        // TODO: Validate Status and Type description in JobOfferDto
         [Fact]
         public void StatusDescriptionProperty()
         {

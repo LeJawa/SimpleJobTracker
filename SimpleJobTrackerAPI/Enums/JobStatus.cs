@@ -2,6 +2,7 @@
 {
     public enum JobStatus
     {
+        Undefined = 0,
         NotYetApplied,
         AppliedWaitingForFirstContact,
         FirstContactMadeWaitingForCall,
