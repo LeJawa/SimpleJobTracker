@@ -69,9 +69,10 @@ namespace SimpleJobTrackerAPI.Services.OffersDbService
             return deletedOffers;
         }
 
-        public Task<List<JobOfferDto>> GetJobOffers()
+        public async Task<List<JobOfferDto>> GetJobOffers()
         {
-            throw new NotImplementedException();
+            var offers = await _context.JobOffers.Where(x => !x.IsDeleted).Select(x => _mapper.Map<JobOfferDto>(x)).ToListAsync();
+            return offers;
         }
 
         public Task<JobOfferDto?> GetSingleJobOffer(int id)
