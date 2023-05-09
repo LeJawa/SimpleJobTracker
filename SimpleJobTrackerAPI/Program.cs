@@ -14,7 +14,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IOffersDbService, OffersDbService>();
 builder.Services.AddDbContext<OffersDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("OffersDbConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TestOffersDbConnection")));
 
 builder.Services.AddAutoMapper(typeof(JobOffersProfile));
 
