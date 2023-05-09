@@ -38,6 +38,8 @@ namespace SimpleJobTrackerAPI.Services.OffersDbService
             {
                 var jobOfferToBeRemoved = await _context.JobOffers.SingleAsync(x => x.Id == id);
 
+                if (jobOfferToBeRemoved.IsDeleted) { throw new KeyNotFoundException(); } // Offer already deleted
+
                 jobOfferToBeRemoved.IsDeleted = true;
                 await _context.SaveChangesAsync();
 
@@ -61,9 +63,10 @@ namespace SimpleJobTrackerAPI.Services.OffersDbService
             return list;
         }
 
-        public Task<List<JobOfferDto>> GetDeletedOffers()
+        public async Task<List<JobOfferDto>> GetDeletedOffers()
         {
-            throw new NotImplementedException();
+            var deletedOffers = await _context.JobOffers.Where(x => x.IsDeleted).Select(x => _mapper.Map<JobOfferDto>(x)).ToListAsync();
+            return deletedOffers;
         }
 
         public Task<List<JobOfferDto>> GetJobOffers()
