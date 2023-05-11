@@ -13,9 +13,7 @@ namespace SimpleJobTrackerAPI.Data
                 fixture.Customize<JobOffer>(product => product.Without(p => p.Id));
                 fixture.Customize<Company>(product => product.Without(c => c.Id));
                 //--- The next two lines add 25 rows to your database
-                List<Company> companies = fixture.CreateMany<Company>(25).ToList();
                 List<JobOffer> offers = fixture.CreateMany<JobOffer>(25).ToList();
-                offersContext.AddRange(companies);
                 offersContext.AddRange(offers);
                 offersContext.SaveChanges();
             }
