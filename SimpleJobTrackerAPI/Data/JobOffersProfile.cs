@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using SimpleJobTrackerAPI.Enums;
-using SimpleJobTrackerAPI.Models;
 
 namespace SimpleJobTrackerAPI.Data
 {

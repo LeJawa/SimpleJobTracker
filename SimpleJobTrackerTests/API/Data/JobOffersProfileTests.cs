@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using FluentAssertions;
-using SimpleJobTrackerAPI.Data;
 
 namespace SimpleJobTrackerTests.API.Data
 {
@@ -24,7 +23,7 @@ namespace SimpleJobTrackerTests.API.Data
 
             var newOffer = mapper.Map<JobOffer>(offerDto);
 
-            newOffer.Should().BeEquivalentTo(offer);            
+            newOffer.Should().BeEquivalentTo(offer);
         }
 
 

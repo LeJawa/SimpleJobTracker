@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SimpleJobTrackerAPI.Models;
 
-namespace SimpleJobTrackerAPI.Controllers
+namespace SimpleJobTrackerAPI.Data
 {
     public class OffersDbContext : DbContext
     {

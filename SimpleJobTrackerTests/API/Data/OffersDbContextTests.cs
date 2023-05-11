@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace SimpleJobTrackerTests.API.Controllers
+namespace SimpleJobTrackerTests.API.Data
 {
     public class OffersDbContextTests
     {

@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using SimpleJobTrackerAPI.Controllers;
 using SimpleJobTrackerAPI.Data;
 using SimpleJobTrackerAPI.Enums;
-using SimpleJobTrackerAPI.Models;
 
 namespace SimpleJobTrackerAPI.Services.OffersDb
 {

@@ -1,6 +1,4 @@
-﻿using SimpleJobTrackerAPI.Enums;
-
-namespace SimpleJobTrackerTests.API.Models
+﻿namespace SimpleJobTrackerTests.API.Data
 {
     public class JobOfferTests
     {

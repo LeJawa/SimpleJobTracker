@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using SimpleJobTrackerAPI.Controllers;
 using SimpleJobTrackerAPI.Data;
 using SimpleJobTrackerAPI.Services.OffersDb;
 
@@ -14,7 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IOffersDbService, OffersDbService>();
 builder.Services.AddDbContext<OffersDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TestOffersDbConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DockerDbConnection")));
 
 builder.Services.AddAutoMapper(typeof(JobOffersProfile));
 
@@ -25,6 +24,15 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var salesContext = scope.ServiceProvider.GetRequiredService<OffersDbContext>();
+    salesContext.Database.EnsureCreated();
+    salesContext.Seed();
 }
 
 app.UseHttpsRedirection();

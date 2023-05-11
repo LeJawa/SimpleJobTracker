@@ -1,4 +1,4 @@
-﻿namespace SimpleJobTrackerTests.API.Models
+﻿namespace SimpleJobTrackerTests.API.Data
 {
     public class CompanyTests
     {

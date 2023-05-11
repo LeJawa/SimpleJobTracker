@@ -1,6 +1,4 @@
-﻿using SimpleJobTrackerAPI.Data;
-
-namespace SimpleJobTrackerTests.API.Data
+﻿namespace SimpleJobTrackerTests.API.Data
 {
     public class JobOfferDtoTests
     {

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using SimpleJobTrackerAPI.Data;
 
 namespace SimpleJobTrackerTests.API.Services.OffersDb
 {
