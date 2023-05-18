@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleJobTrackerAPI", "SimpleJobTrackerAPI\SimpleJobTrackerAPI.csproj", "{CF48D355-22FD-4E57-A241-92569F7F8C60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleJobTrackerAPI", "SimpleJobTrackerAPI\SimpleJobTrackerAPI.csproj", "{CF48D355-22FD-4E57-A241-92569F7F8C60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleJobTrackerTests", "SimpleJobTrackerTests\SimpleJobTrackerTests.csproj", "{C5094439-CB93-4D09-B4C5-3B15AFF3A30F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleJobTrackerTests", "SimpleJobTrackerTests\SimpleJobTrackerTests.csproj", "{C5094439-CB93-4D09-B4C5-3B15AFF3A30F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleJobTrackerForms", "SimpleJobTrackerForms\SimpleJobTrackerForms.csproj", "{1F8F70DB-6749-4C79-B253-A55BB86201EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleJobTrackerLibrary", "SimpleJobTrackerLibrary\SimpleJobTrackerLibrary.csproj", "{7A20D180-1C6D-4E85-89BD-5D7DA944D1CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{C5094439-CB93-4D09-B4C5-3B15AFF3A30F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5094439-CB93-4D09-B4C5-3B15AFF3A30F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5094439-CB93-4D09-B4C5-3B15AFF3A30F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F8F70DB-6749-4C79-B253-A55BB86201EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F8F70DB-6749-4C79-B253-A55BB86201EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F8F70DB-6749-4C79-B253-A55BB86201EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F8F70DB-6749-4C79-B253-A55BB86201EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A20D180-1C6D-4E85-89BD-5D7DA944D1CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A20D180-1C6D-4E85-89BD-5D7DA944D1CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A20D180-1C6D-4E85-89BD-5D7DA944D1CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A20D180-1C6D-4E85-89BD-5D7DA944D1CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
