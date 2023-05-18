@@ -4,18 +4,7 @@ namespace SimpleJobTrackerLibrary.Requests
 {
     public class HttpRequester : IDataRequester<JobOfferDto>
     {
-        private List<JobOfferDto> _offers = null!;
-        public List<JobOfferDto> Offers
-        {
-            get
-            {
-                if (_offers == null)
-                {
-                    _offers = RequestData();
-                }
-                return _offers;
-            }
-        } 
+        public List<JobOfferDto> Offers { get; private set; } = null!;
 
 
         public List<JobOfferDto> RequestData()
@@ -38,6 +27,7 @@ namespace SimpleJobTrackerLibrary.Requests
                 // string responseBody = await client.GetStringAsync(uri);
 
                 Console.WriteLine(responseBody);
+
             }
             catch (HttpRequestException e)
             {
@@ -49,7 +39,9 @@ namespace SimpleJobTrackerLibrary.Requests
             // when done using it, so the app doesn't leak resources
             client.Dispose();
 
-            return _offers;
+            // TODO: parse json response
+
+            return Offers;
         }
     }
 }
